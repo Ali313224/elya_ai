@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ELYA AI</title>
   <style>
     body {
@@ -19,23 +19,34 @@
       background-color: #27293d;
       padding: 1rem;
       text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: #00ffaa;
       border-bottom: 1px solid #444;
     }
 
-    .chat-container {
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #00ffaa;
+    }
+
+    header small {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    #chat {
       flex: 1;
       padding: 1rem;
       overflow-y: auto;
+      background-color: #1e1e2f;
+      display: flex;
+      flex-direction: column;
     }
 
     .message {
       background-color: #2f3148;
       margin: 0.5rem 0;
       padding: 0.75rem;
-      border-radius: 12px;
+      border-radius: 10px;
       max-width: 70%;
     }
 
@@ -49,55 +60,56 @@
     }
 
     .chat-input {
-      display: flex;
-      flex-direction: column;
       padding: 1rem;
       background-color: #27293d;
       border-top: 1px solid #444;
     }
 
     .chat-input textarea {
-      resize: none;
-      height: 70px;
+      width: 100%;
+      height: 80px;
       padding: 0.5rem;
-      border-radius: 8px;
+      border-radius: 10px;
       border: none;
+      resize: none;
       font-size: 1rem;
       background-color: #1c1e30;
       color: white;
     }
 
-    .chat-input .actions {
+    .chat-buttons {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       margin-top: 0.5rem;
+      flex-wrap: wrap;
     }
 
-    .chat-input button {
-      padding: 0.5rem 1.2rem;
+    .chat-buttons button,
+    .chat-buttons input[type="file"] {
+      margin-top: 0.4rem;
+      padding: 0.4rem 0.8rem;
       border: none;
       border-radius: 8px;
       background-color: #00ffaa;
       color: #000;
       font-weight: bold;
       cursor: pointer;
+      font-size: 0.9rem;
     }
 
-    .chat-input input[type="file"] {
+    .chat-buttons input[type="file"] {
+      background-color: #444;
       color: white;
+      padding: 0.3rem;
     }
 
     footer {
       text-align: center;
       font-size: 0.85rem;
-      padding: 0.5rem;
+      padding: 1rem;
       background-color: #1a1c28;
       color: #bbb;
-    }
-
-    .social-links {
-      margin-top: 0.3rem;
+      border-top: 1px solid #333;
     }
 
     .social-links a {
@@ -105,56 +117,57 @@
       color: #00ffaa;
       text-decoration: none;
     }
-
-    .signature {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      font-size: 0.75rem;
-      color: #888;
-    }
   </style>
 </head>
 <body>
-  <header>ELYA AI</header>
+  <header>
+    <h1>ELYA AI</h1>
+    <small>By↪ ELYA_SYSTEM</small>
+  </header>
 
-  <div class="chat-container" id="chat">
-    <!-- الرسائل تظهر هنا -->
+  <div id="chat">
+    <!-- الرسائل ستظهر هنا -->
   </div>
 
   <div class="chat-input">
     <textarea id="message" placeholder="اكتب رسالتك هنا..."></textarea>
-    <div class="actions">
-      <input type="file" id="fileInput" multiple />
+
+    <div class="chat-buttons">
       <button onclick="sendMessage()">إرسال</button>
+      <input type="file" id="imageInput" accept="image/*">
+      <input type="file" id="videoInput" accept="video/*">
+      <input type="file" id="fileInput" multiple>
+      <button onclick="sendAudio()">إرسال صوت</button>
     </div>
   </div>
 
   <footer>
-    <div>تابعني على:</div>
-    <div class="social-links">
+    <div>
       <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt" target="_blank">Instagram</a> |
       <a href="https://www.facebook.com/elya_m_313" target="_blank">Facebook</a>
     </div>
+    <div style="margin-top: 0.5rem;">
+      لقد تمت برمجة هذا الموقع بواسطة Ali_Shams_313
+    </div>
   </footer>
-
-  <div class="signature">
-    لقد تمت برمجة هذا الموقع بواسطة Ali_Shams_313 - By↪ELYA_SYSTEM
-  </div>
 
   <script>
     function sendMessage() {
-      const messageBox = document.getElementById("message");
+      const msg = document.getElementById("message").value.trim();
+      if (!msg) return;
+
       const chat = document.getElementById("chat");
-      const msg = messageBox.value.trim();
-      if (msg) {
-        const msgDiv = document.createElement("div");
-        msgDiv.className = "message user";
-        msgDiv.innerText = msg;
-        chat.appendChild(msgDiv);
-        messageBox.value = "";
-        // هنا مكان استدعاء الذكاء الاصطناعي (backend)
-      }
+      const userMsg = document.createElement("div");
+      userMsg.className = "message user";
+      userMsg.innerText = msg;
+      chat.appendChild(userMsg);
+      document.getElementById("message").value = "";
+
+      // استدعاء API هنا إن أردت ربطه بالخادم
+    }
+
+    function sendAudio() {
+      alert("زر إرسال الصوت قيد التطوير");
     }
   </script>
 </body>
