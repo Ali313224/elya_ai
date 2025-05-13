@@ -1,183 +1,160 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ELYA AI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Tahoma', sans-serif;
-      background-color: #121212;
-      color: #f1f1f1;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e2f;
+      color: #ffffff;
       display: flex;
       flex-direction: column;
       height: 100vh;
     }
 
     header {
-      background-color: #1f1f1f;
+      background-color: #27293d;
       padding: 1rem;
       text-align: center;
       font-size: 1.8rem;
       font-weight: bold;
-      color: #00ffc3;
-      border-bottom: 1px solid #333;
+      color: #00ffaa;
+      border-bottom: 1px solid #444;
     }
 
-    .chat-box {
+    .chat-container {
       flex: 1;
       padding: 1rem;
       overflow-y: auto;
     }
 
     .message {
-      margin-bottom: 1rem;
-      padding: 0.7rem;
-      border-radius: 10px;
-      max-width: 80%;
-      word-wrap: break-word;
+      background-color: #2f3148;
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      border-radius: 12px;
+      max-width: 70%;
     }
 
     .user {
-      background-color: #00ffc3;
-      color: #000;
       align-self: flex-end;
-      text-align: right;
-      margin-right: auto;
+      background-color: #3e425f;
     }
 
-    .ai {
-      background-color: #222;
-      color: #fff;
+    .bot {
       align-self: flex-start;
-      text-align: right;
-      margin-left: auto;
     }
 
-    .input-area {
-      padding: 1rem;
-      background-color: #1f1f1f;
+    .chat-input {
       display: flex;
-      gap: 0.5rem;
-      border-top: 1px solid #333;
+      flex-direction: column;
+      padding: 1rem;
+      background-color: #27293d;
+      border-top: 1px solid #444;
     }
 
-    textarea {
-      flex: 1;
-      padding: 0.7rem;
-      border-radius: 8px;
-      border: none;
+    .chat-input textarea {
       resize: none;
-      background-color: #2c2c2c;
-      color: #fff;
+      height: 70px;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      background-color: #1c1e30;
+      color: white;
     }
 
-    button {
-      padding: 0.7rem 1.2rem;
+    .chat-input .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .chat-input button {
+      padding: 0.5rem 1.2rem;
       border: none;
       border-radius: 8px;
-      background-color: #00ffc3;
+      background-color: #00ffaa;
       color: #000;
       font-weight: bold;
       cursor: pointer;
     }
 
-    input[type="file"] {
-      padding: 0.7rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #2c2c2c;
-      color: #fff;
+    .chat-input input[type="file"] {
+      color: white;
     }
 
     footer {
-      background-color: #0f0f0f;
       text-align: center;
-      padding: 0.8rem;
       font-size: 0.85rem;
-      color: #888;
+      padding: 0.5rem;
+      background-color: #1a1c28;
+      color: #bbb;
     }
 
-    footer a {
-      color: #00ffc3;
+    .social-links {
+      margin-top: 0.3rem;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      color: #00ffaa;
       text-decoration: none;
-      margin: 0 0.4rem;
     }
 
-    .tag {
+    .signature {
       position: fixed;
       bottom: 10px;
       right: 10px;
       font-size: 0.75rem;
-      color: #666;
+      color: #888;
     }
   </style>
 </head>
 <body>
   <header>ELYA AI</header>
 
-  <div class="chat-box" id="chat-box"></div>
+  <div class="chat-container" id="chat">
+    <!-- الرسائل تظهر هنا -->
+  </div>
 
-  <div class="input-area">
-    <textarea id="user-input" rows="2" placeholder="اكتب رسالتك هنا..."></textarea>
-    <input type="file" id="file-input" />
-    <button onclick="sendMessage()">إرسال</button>
+  <div class="chat-input">
+    <textarea id="message" placeholder="اكتب رسالتك هنا..."></textarea>
+    <div class="actions">
+      <input type="file" id="fileInput" multiple />
+      <button onclick="sendMessage()">إرسال</button>
+    </div>
   </div>
 
   <footer>
-    By ↪ELYA_SYSTEM |
-    <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt" target="_blank">Instagram</a>
-    <a href="https://www.facebook.com/elya_m_313" target="_blank">Facebook</a>
+    <div>تابعني على:</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt" target="_blank">Instagram</a> |
+      <a href="https://www.facebook.com/elya_m_313" target="_blank">Facebook</a>
+    </div>
   </footer>
 
-  <div class="tag">تمت برمجة هذا الموقع بواسطة Ali_Shams_313</div>
+  <div class="signature">
+    لقد تمت برمجة هذا الموقع بواسطة Ali_Shams_313 - By↪ELYA_SYSTEM
+  </div>
 
   <script>
-    async function sendMessage() {
-      const input = document.getElementById("user-input");
-      const fileInput = document.getElementById("file-input");
-      const chatBox = document.getElementById("chat-box");
-      const message = input.value.trim();
-      const file = fileInput.files[0];
-
-      if (!message && !file) return;
-
-      const userMsg = document.createElement("div");
-      userMsg.className = "message user";
-      userMsg.textContent = message || "تم رفع ملف.";
-      chatBox.appendChild(userMsg);
-
-      const aiMsg = document.createElement("div");
-      aiMsg.className = "message ai";
-      aiMsg.textContent = "جاري التفكير...";
-      chatBox.appendChild(aiMsg);
-
-      input.value = "";
-      fileInput.value = "";
-      chatBox.scrollTop = chatBox.scrollHeight;
-
-      const formData = new FormData();
-      if (message) formData.append("message", message);
-      if (file) formData.append("file", file);
-
-      try {
-        const response = await fetch("http://localhost:3000/chat", {
-          method: "POST",
-          body: formData
-        });
-        const data = await response.json();
-        aiMsg.textContent = data.reply || "لم يتم الحصول على رد.";
-      } catch (err) {
-        aiMsg.textContent = "حدث خطأ في الاتصال بالخادم.";
+    function sendMessage() {
+      const messageBox = document.getElementById("message");
+      const chat = document.getElementById("chat");
+      const msg = messageBox.value.trim();
+      if (msg) {
+        const msgDiv = document.createElement("div");
+        msgDiv.className = "message user";
+        msgDiv.innerText = msg;
+        chat.appendChild(msgDiv);
+        messageBox.value = "";
+        // هنا مكان استدعاء الذكاء الاصطناعي (backend)
       }
-
-      chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
 </body>
