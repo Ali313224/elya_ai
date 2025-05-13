@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>ELYA AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: #1e1e2f;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      text-align: center;
+      padding: 1rem;
+      background: #27293d;
+    }
+    header h1 {
+      margin: 0;
+      color: #00ffaa;
+    }
+    header small {
+      color: #ccc;
+    }
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    .chat-input {
+      padding: 1rem;
+      background: #27293d;
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 0.5rem;
+      border-radius: 10px;
+      background: #1c1e30;
+      color: white;
+      border: none;
+      resize: none;
+    }
+    .buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .buttons button, .buttons input {
+      padding: 0.5rem 1rem;
+      background: #00ffaa;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: #1a1c28;
+    }
+    footer a {
+      color: #00ffaa;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ELYA AI</h1>
+    <small>By↪ ELYA_SYSTEM</small>
+  </header>
+
+  <div id="chat"></div>
+
+  <div class="chat-input">
+    <textarea id="message" placeholder="اكتب رسالتك..."></textarea>
+    <div class="buttons">
+      <button onclick="sendMessage()">إرسال</button>
+      <input type="file" id="imageInput" accept="image/*">
+      <input type="file" id="videoInput" accept="video/*">
+      <input type="file" id="fileInput">
+      <button onclick="sendAudio()">إرسال صوت</button>
+    </div>
+  </div>
+
+  <footer>
+    <a href="https://www.instagram.com/elya_m_313/profilecard/?igsh=YmU2aTVxNHhhdjJt">Instagram</a> |
+    <a href="https://www.facebook.com/elya_m_313">Facebook</a>
+    <div>لقد تمت برمجة هذا الموقع بواسطة Ali_Shams_313</div>
+  </footer>
+
+  <script>
+    async function sendMessage() {
+      const text = document.getElementById("message").value.trim();
+      if (!text) return;
+
+      const div = document.createElement("div");
+      div.textContent = "أنت: " + text;
+      document.getElementById("chat").appendChild(div);
+
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+
+      const data = await res.json();
+      const bot = document.createElement("div");
+      bot.textContent = "ELYA: " + data.reply;
+      document.getElementById("chat").appendChild(bot);
+
+      document.getElementById("message").value = "";
+    }
+
+    function sendAudio() {
+      alert("إرسال الصوت غير مفعل حالياً.");
+    }
+  </script>
+</body>
+</html>
